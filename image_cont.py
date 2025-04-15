@@ -16,7 +16,7 @@ import numpy as np
 def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None, 
               xlabel = 'x', ylabel = 'y', timedt=None, dpi_val=100, 
               figsz = None, colmp = 'gist_heat', vmin_=None, vmax_=None,
-              title_fntsz = 16, axis_fntsz = 12, tick_fntsz = 12):
+              title_fntsz = 16, axis_fntsz = 12, tick_fntsz = 12, cbar_fntsz = 10):
     """
     This function generates a heatmap of the input data using imshow(). 
     One can simply call this function as `image_cont(data[x,y])` 
@@ -40,6 +40,10 @@ def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None,
     - colmp (str, optional): The colormap to use for the heatmap, default is 'hot'.
     - vmin_ (float, optional): The minimum value for the colormap in the colormap. Default is None.
     - vmax_ (float, optional): The maximum value for the colormap in the colormap. Default is None.
+    - title_fntsz (int, optional): Font size for the title, default is 16.
+    - axis_fntsz (int, optional): Font size for the axis labels, default is 12.
+    - tick_fntsz (int, optional): Font size for the axis ticks, default is 12.
+    - cbar_fntsz (int, optional): Font size for the colorbar ticks, default is 10.
 
     Returns:
     - Image attached to axes.
@@ -56,6 +60,7 @@ def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None,
         image_cont(pltdat=data, xx_=x, yy_=y, title="Sample Plot", 
                    xlabel="X-axis", ylabel="Y-axis", colmp='viridis')`
     """ 
+
     # Create a new figure and axes if not provided
     fig_flag = False # Flag to check if image_cont created figure or not.
     if fig is None:
@@ -103,6 +108,7 @@ def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None,
         height, width = len(yy), len(xx)
     ax.cbar = fig.colorbar(img,ax=ax,fraction=0.047*height/width, pad=0.04, 
                            format='%.2f') # Adding an appropriate sized colorbar
+    ax.cbar.ax.tick_params(labelsize=cbar_fntsz)
     
     ax.tick_params(axis='both', which='major', labelsize=tick_fntsz)
     ax.set_aspect('equal') 
