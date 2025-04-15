@@ -2,7 +2,7 @@
 #===============================================================================
 """
 This is a module to make contour plots of data from F3D.
-|Author: Regis | Date Created/Last Modified: Oct 12, 2023/Feb 12, 2025|
+|Author: Regis | Date Created/Last Modified: Oct 12, 2023/April 15, 2025|
 """
 #===============================================================================
 #-------------------------------------------------------------------------------
@@ -15,7 +15,8 @@ import numpy as np
 #-------------------------------------------------------------------------------
 def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None, 
               xlabel = 'x', ylabel = 'y', timedt=None, dpi_val=100, 
-              figsz = None, colmp = 'gist_heat', vmin_=None, vmax_=None):
+              figsz = None, colmp = 'gist_heat', vmin_=None, vmax_=None,
+              title_fntsz = 16, axis_fntsz = 12, tick_fntsz = 12):
     """
     This function generates a heatmap of the input data using imshow(). 
     One can simply call this function as `image_cont(data[x,y])` 
@@ -83,17 +84,17 @@ def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None,
 
     # Set the title of the plot
     if title is None:
-        ax.set_title(f'{pltdat_min:.3f}  {pltdat_max:.3f}', fontsize=16)
+        ax.set_title(f'{pltdat_min:.3f}  {pltdat_max:.3f}', fontsize=title_fntsz)
     else: 
         # ax.set_title(f'{title}: {pltdat_min:.3f}  {pltdat_max:.3f}') 
-        ax.set_title(f'{title}', fontsize=16) 
+        ax.set_title(f'{title}', fontsize=title_fntsz) 
     
     # Set the labels of the x and y axes
     if timedt is None:
-        ax.set_xlabel(f'{xlabel}',fontsize=12)
+        ax.set_xlabel(f'{xlabel}',fontsize=axis_fntsz)
     else: 
-        ax.set_xlabel(f'{xlabel}\nt = {timedt:.5f}',fontsize=12)
-    ax.set_ylabel(f'{ylabel}',fontsize=12)
+        ax.set_xlabel(f'{xlabel}\nt = {timedt:.5f}',fontsize=axis_fntsz)
+    ax.set_ylabel(f'{ylabel}',fontsize=axis_fntsz)
     
     # Set the colorbar
     if xx is None or yy is None:
@@ -103,7 +104,7 @@ def image_cont(pltdat, xx=None, yy=None , fig=None, ax=None, title=None,
     ax.cbar = fig.colorbar(img,ax=ax,fraction=0.047*height/width, pad=0.04, 
                            format='%.2f') # Adding an appropriate sized colorbar
     
-    ax.tick_params(axis='both', which='major', labelsize=12)
+    ax.tick_params(axis='both', which='major', labelsize=tick_fntsz)
     ax.set_aspect('equal') 
     
     # Display the plot if fig object is not passed as parameter
